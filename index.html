@@ -1,58 +1,88 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تاج العروس | هدايا الزفاف والعرسان</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>تاج العروس — عالم الخيال والهدايا</title>
+
+  <!-- ستايل المشروع -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- مكتبات عبر CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.180.0/examples/js/loaders/GLTFLoader.js"></script>
 </head>
 <body>
 
-  <!-- خلفية الورود الذهبية المتوهجة -->
-  <div id="floating-flowers"></div>
+  <!-- WebGL container -->
+  <div id="webgl-container" aria-hidden="true"></div>
 
-  <!-- موسيقى خلفية افتراضية -->
-  <audio id="bg-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" autoplay loop></audio>
+  <!-- واجهة الـ UI (HTML overlay فوق المشهد 3D) -->
+  <header id="hero" class="hero">
+    <div class="hero-left">
+      <img src="images/a2.png" alt="شعار تاج العروس" class="logo">
+      <h1 class="title">تاج العروس</h1>
+      <p class="subtitle">هدايا فاخرة، لحظات لا تُنسى — تجربة خيالية للعُرسان</p>
 
-  <!-- الهيدر -->
-  <header class="hero">
-    <img src="images/a2.png" class="logo" alt="شعار تاج العروس" />
-    <h1>تاج العروس للهدايا والزفاف</h1>
-    <p>كل ما يحلم به العرسان... في مكان واحد ✨</p>
-    <button onclick="scrollToSection('products')">تصفح الهدايا</button>
+      <div class="cta">
+        <button class="btn primary" id="startTourBtn">جولة تفاعلية</button>
+        <button class="btn outline" id="shopBtn">تصفح الهدايا</button>
+      </div>
+
+      <!-- دعائي احترافي (carousel بسيط) -->
+      <div class="ads" id="ads">
+        <div class="ad">عرض خاص: تغليف مجاني للحجز قبل 30 نوفمبر</div>
+        <div class="ad">خصم 15% على باقات الزفاف هذا الموسم</div>
+        <div class="ad">خدمة تفصيلية وحفر أسماء على الهدايا</div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <!-- صورة هيرو من الإنترنت (بنفسجي/ذهب) — مصدر: Unsplash. -->
+      <img class="hero-image" src="https://images.unsplash.com/photo-1623165975203-c0a18b3a7f3e?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=0" alt="hero">
+    </div>
   </header>
 
-  <!-- عن المتجر -->
-  <section id="about" class="section fade">
-    <h2>عن تاج العروس</h2>
-    <p>
-      متجر متخصص بهدايا العرسان، الزفاف، الزينة، التحف، والورود الطبيعية والصناعية.
-      نقدم منتجات فاخرة تجعل لحظاتكم لا تُنسى.
-    </p>
-    <img src="images/a3.jpg" class="shop-img" alt="صورة المتجر" />
-  </section>
+  <main>
+    <section id="about" class="panel">
+      <div class="panel-inner">
+        <h2>عن تاج العروس</h2>
+        <p>متجر فخم يجمع الحرفية والذوق الرفيع — تغليف يدوي، تحف، وباقات متناسقة تناسب كل ذوق.</p>
+        <img src="images/a3.jpg" alt="صورة المتجر" class="shop-photo">
+      </div>
+    </section>
 
-  <!-- الهدايا -->
-  <section id="products" class="section fade">
-    <h2>منتجاتنا</h2>
-    <div class="gallery">
-      <img src="images/a4.jpg" alt="هدية" />
-      <img src="images/a5.jpg" alt="ورد" />
-      <img src="images/a6.jpg" alt="تحف" />
-      <img src="images/a7.jpg" alt="هدايا" />
-    </div>
-  </section>
+    <section id="products" class="panel">
+      <div class="panel-inner">
+        <h2>منتجات مميزة</h2>
+        <div id="productsGrid" class="products-grid"></div>
+      </div>
+    </section>
 
-  <!-- التواصل -->
-  <section id="contact" class="section fade">
-    <h2>تواصل معنا</h2>
-    <p>📍 صنعاء - شارع حدة<br>📞 775758965</p>
-  </section>
+    <section id="contact" class="panel">
+      <div class="panel-inner">
+        <h2>تواصل معنا</h2>
+        <p>📍 صنعاء - شارع حدة &nbsp; | &nbsp; ☎️ 775758965</p>
+        <div class="contact-actions">
+          <a class="btn primary" href="https://wa.me/967775758965" target="_blank" rel="noopener">راسلنا على واتساب</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-  <footer>
-    <p>© 2025 تاج العروس | كل الحقوق محفوظة</p>
+  <footer class="footer">
+    <p>© <span id="year"></span> تاج العروس — كل الحقوق محفوظة</p>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- زر الموسيقى -->
+  <button id="music-btn" aria-pressed="false" title="تشغيل / إيقاف الموسيقى">♪</button>
+
+  <!-- موسيقى خلفية عبر الإنترنت -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- السكربت الرئيسي -->
+  <script src="script.js" defer></script>
 </body>
 </html>
