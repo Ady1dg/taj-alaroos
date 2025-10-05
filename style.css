@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Tajawal', sans-serif;
+  background: linear-gradient(to bottom right, #fff7fa, #ffe8f0);
+  color: #400029;
+  overflow-x: hidden;
+}
+
+header.hero {
+  height: 100vh;
+  background: url('images/a4.jpg') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  text-shadow: 0 0 15px #000;
+  animation: fadeIn 2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.logo {
+  width: 150px;
+  animation: float 4s ease-in-out infinite, glow 3s ease-in-out infinite;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin: 10px 0;
+}
+
+button {
+  background: #e60073;
+  border: none;
+  padding: 12px 25px;
+  color: white;
+  font-size: 1em;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #ff3399;
+  transform: scale(1.1);
+}
+
+.section {
+  padding: 80px 20px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.shop-img {
+  width: 90%;
+  max-width: 400px;
+  border-radius: 20px;
+  margin-top: 20px;
+  box-shadow: 0 0 20px rgba(255, 100, 150, 0.5);
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.gallery img {
+  width: 45%;
+  max-width: 200px;
+  border-radius: 15px;
+  transition: transform 0.5s;
+}
+
+.gallery img:hover {
+  transform: scale(1.1) rotate(2deg);
+}
+
+footer {
+  background: #e60073;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 0.9em;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  0%, 100% { filter: drop-shadow(0 0 0px gold); }
+  50% { filter: drop-shadow(0 0 15px gold); }
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.fade { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+.fade.visible { opacity: 1; transform: translateY(0); }
+
+/* الورود الذهبية المتحركة */
+#floating-flowers {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.flower {
+  position: absolute;
+  width: 30px; height: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+  animation-name: floatUp, glow;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes floatUp {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-50px) rotate(360deg); opacity: 0; }
+}
